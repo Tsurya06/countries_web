@@ -1,6 +1,7 @@
 import "../../App.css";
 import { FaArrowRight } from "react-icons/fa";
 import svg from "../../assets/3d-Earth-Globe.svg";
+import { NavLink } from "react-router-dom";
 
 export const HeroSection = () => {
   return (
@@ -11,9 +12,9 @@ export const HeroSection = () => {
           <p className="hero-content-para">
             Discover amazing content and explore new horizons with us.
           </p>
-          <button>
-            Get Started <FaArrowRight />
-          </button>
+          <NavLink to='/'>
+            <button style={{cursor:'pointer'}}> Get Started <FaArrowRight /> </button>
+          </NavLink>
         </div>
         <div className="hero-image">
           <img
