@@ -1,0 +1,25 @@
+.skeleton-loader {
+    padding: 10px;
+    border: 1px solid #686868;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .skeleton-title {
+    width: 300px;
+    height: 180px;
+    background-color: #918f8f;
+    margin-bottom: 10px;
+  }
+  
+  .skeleton-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .skeleton-item {
+    width: 150px;
+    height: 20px;
+    background-color: #acacac;
+    margin-bottom: 8px;
+  }

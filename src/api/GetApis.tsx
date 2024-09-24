@@ -15,3 +15,12 @@ export const getAllCountries = async()=>{
         throw error;
     }
 }
+export const getCountriesByName = async(name:string)=>{
+    try{
+        const url= `/name/${name}`;
+        const response = await api.get(url);
+        return response;
+    }catch(error){
+        throw error;
+    }
+}
