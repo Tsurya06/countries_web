@@ -3,31 +3,9 @@ import { getAllCountries, getCountriesByName } from "../api/GetApis";
 import { FaSearchLocation } from "react-icons/fa";
 import "../App.css";
 import SkeletonLoader from "../components/SkeletonLoader";
+import { CountryCard } from "../components/CountryCard";
 
-const CountryCard: React.FC<{ country: any; index: number }> = ({
-  country,
-  index,
-}) => {
-  return (
-    <div className="card-content" key={index}>
-      <div className="card">
-        <p className="card-title">{country.name.common}</p>
-        <img src={country.flags.svg} alt={country.name.common} height={"120"} />
-        <ul className="card-desc">
-          <li>
-            <b>Capital:</b> {country.capital}
-          </li>
-          <li>
-            <b>Population:</b> {country.population}
-          </li>
-          <li>
-            <b>Region:</b> {country.region}
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
+
 export const Counry = () => {
   const [isPending, startTransition] = useTransition();
   const [countries, setCountries] = useState<any[]>([]);
@@ -50,7 +28,14 @@ export const Counry = () => {
   useEffect(() => {
     if (debouncedSearchText && debouncedSearchText?.trim().length > 0) {
       startTransition(() => {
-        getCountriesByName(debouncedSearchText)
+        getCountriesByName(debouncedSearchText,
+            {params: {
+              limit: 10,
+              offset: 0,
+              page: 1,
+              order_by: "population",
+            }}
+          )
           .then((resp) => {
             if (resp.data.length > 0) {
               setCountries(resp.data);
@@ -64,7 +49,12 @@ export const Counry = () => {
       });
     } else if (debouncedSearchText?.trim().length === 0) {
       startTransition(() => {
-        getAllCountries().then((resp) => {
+        getAllCountries({params: {
+          limit: 10,
+          offset: 0,
+          page: 1,
+          order_by: "population",
+        }}).then((resp) => {
           setCountries(resp.data);
         });
       });
@@ -85,10 +75,10 @@ export const Counry = () => {
           <FaSearchLocation className="search-icon" />
         </div>
       </div>
-      {!isPending && countries.length === 0 && searchText && searchText?.trim().length>0 && (
+      {!isPending && !countries.length && searchText && searchText?.trim().length>0 && (
         <p className="no-data-found">Oops!! No countries found.</p>
       )}
-      {!isPending ? (
+      {!isPending && countries.length  ? (
         <div className="gradiant-cards">
           {countries.map((country, index) => (
             <CountryCard country={country} key={index} index={index} />
